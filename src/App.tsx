@@ -17,11 +17,17 @@ export default function App() {
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
   const [resultBackScreen, setResultBackScreen] = useState<Screen>('DASHBOARD');
   const [selectedSettingId, setSelectedSettingId] = useState<string | null>(null);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
 
-  const navigate = (newScreen: Screen) => {
-    setScreen(newScreen);
-    window.scrollTo(0, 0);
-  };
+  const navigate = (newScreen: Screen, data?: any) => {
+
+  if (data) {
+    setAnalysisResult(data);
+  }
+
+  setScreen(newScreen);
+  window.scrollTo(0, 0);
+};
 
   const selectPatient = (id: string) => {
     setSelectedPatientId(id);
@@ -91,21 +97,20 @@ export default function App() {
             />
           )}
           {screen === 'UPLOAD' && (
-            <UploadScreen 
-              onNavigate={navigate}
-              onBack={() => navigate('PATIENT_INFO')}
-              onAnalyze={() => {
-                setResultBackScreen('DASHBOARD');
-                navigate('RESULT');
-              }} 
-            />
-          )}
+          <UploadScreen 
+            onNavigate={navigate}
+            onBack={() => navigate('PATIENT_INFO')}
+          />
+)}
           {screen === 'RESULT' && (
             <ResultScreen 
               onNavigate={navigate}
               onBack={() => navigate(resultBackScreen)}
               onUploadNew={() => navigate('PATIENT_INFO')}
               patientId={selectedPatientId || 'PX-8821'}
+              image={analysisResult?.image}
+              prediction={analysisResult?.prediction}
+              confidence={analysisResult?.confidence}
             />
           )}
         </motion.div>
