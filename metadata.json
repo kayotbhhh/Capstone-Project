@@ -1,0 +1,5 @@
+{
+  "name": "Breast Cancer Detection App",
+  "description": "An advanced AI-powered diagnostic portal for medical professionals to analyze mammography and ultrasound scans for early breast cancer detection.",
+  "requestFramePermissions": []
+}
